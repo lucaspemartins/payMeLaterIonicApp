@@ -1,0 +1,23 @@
+<ion-view title="Customers" class="bar-positive">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <h1>Customers</h1>
+        <ion-grid>
+            <ion-row>
+                <ion-col>CPF</ion-col>
+                <ion-col>Name</ion-col>
+                <ion-col>Cellphone</ion-col>
+                <ion-col>Telephone</ion-col>
+                <ion-col>Email</ion-col>
+            </ion-row>
+            <div ng-repeat="customer in customers | filter : customerFilter">
+                <ion-row>
+                    <ion-col>{{ customer.cpf }}</ion-col>
+                    <ion-col>{{ customer.customer_name }}</ion-col>
+                    <ion-col>{{ customer.cellphone }}</ion-col>
+                    <ion-col>{{ customer.telephone }}</ion-col>
+                    <ion-col>{{ customer.email }}</ion-col>
+                </ion-row>
+            </div>
+        </ion-grid>
+    </ion-content>
+</ion-view>
