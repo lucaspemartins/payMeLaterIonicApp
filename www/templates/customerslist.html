@@ -1,23 +1,22 @@
-<ion-view title="Customers" class="bar-positive">
+<ion-view title="Customers" class="bar-positive" ng-controller="customersListController">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <h1>Customers</h1>
-        <ion-grid>
-            <ion-row>
-                <ion-col>CPF</ion-col>
-                <ion-col>Name</ion-col>
-                <ion-col>Cellphone</ion-col>
-                <ion-col>Telephone</ion-col>
-                <ion-col>Email</ion-col>
-            </ion-row>
-            <div ng-repeat="customer in customers | filter : customerFilter">
-                <ion-row>
-                    <ion-col>{{ customer.cpf }}</ion-col>
-                    <ion-col>{{ customer.customer_name }}</ion-col>
-                    <ion-col>{{ customer.cellphone }}</ion-col>
-                    <ion-col>{{ customer.telephone }}</ion-col>
-                    <ion-col>{{ customer.email }}</ion-col>
-                </ion-row>
-            </div>
-        </ion-grid>
+        <ion-list>
+            <ion-item ng-repeat="customer in customers | filter : customerFilter">
+                <div class="row">
+                    <div class="col-33">
+                        <img src="https://ontalk.com.br/img/avatars/new/18.png" class="icons">
+                    </div>
+                    <div class="col-66">
+                        <h2>{{ customer.customer_name }}</h2>
+                        <h3>CPF: {{ customer.cpf }}</h3>
+                        <h3>Cellphone: {{ customer.cellphone }}</h3>
+                        <h3>Telephone: {{ customer.telephone }}</h3>
+                        <h3>Email: {{ customer.email }}</h3>
+                    </div>
+                    <ion-option-button class="button-positive">Edit</ion-option-button>
+                    <ion-option-button class="button-assertive">Delete</ion-option-button>
+                </div>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>

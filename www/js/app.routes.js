@@ -1,16 +1,18 @@
 angular.module('payMeLaterApp')
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
-    //quando for a pagina de cálculo
-    .state('customerslist', {
-      url: '/Customers',
-      templateUrl: 'index.html',
-      controller: 'customersListController'
-    })
-    .state('index', {
+  .config(function ($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('index', {
         url: '/',
-        templateUrl: 'index.html',
-        controller: 'customersListController'
+        templateUrl: 'index.html'
+      })
+      .state('customerslist', {
+        url: '/customers',
+        views: {
+          'customers': {
+            templateUrl: 'templates/customerslist.html',
+            controller: 'customersListController'
+          }
+        }
       })
     $urlRouterProvider.otherwise('/')
-});
+  });

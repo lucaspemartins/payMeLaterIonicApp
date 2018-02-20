@@ -1,4 +1,9 @@
 angular.module('payMeLaterApp')
 .controller('customersListController', ['$scope', 'customersListService', function($scope, customersListService) {
-    $scope.customers = customersListService.getCustomers();
+    customersListService.getCustomers()
+    .then(function (success) {
+        $scope.customers = success.data;      
+    }, function (error) {
+        console.log("Error to invoke get service");
+    });
 }]);
