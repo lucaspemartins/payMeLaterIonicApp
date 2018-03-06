@@ -1,0 +1,53 @@
+<ion-view title="Sign Up" class="bar-positive">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <div class="row">
+            <div class="col">
+                <form name="signupForm">
+                    <div class="list list-inset">
+                        <label class="item item-input">
+                            <input type="text" name="username" placeholder="Name" ng-model="user.username" required>
+                        </label>
+                        <p ng-show="signupForm.username.$pristine || signupForm.username.$valid"><br></p>
+                        <p class="error-message" ng-hide="signupForm.username.$pristine || signupForm.username.$valid">Username must be set!</p>
+                        
+                        <label class="item item-input">
+                            <input type="text" name="nickname" placeholder="Nickname" ng-model="user.nickname" required>
+                        </label>
+                        <p ng-show="signupForm.nickname.$pristine || signupForm.nickname.$valid"><br></p>
+                        <p class="error-message" ng-show="!signupForm.nickname.$pristine && !signupForm.nickname.$valid">Nickname must be set!</p>
+                        
+                        <label class="item item-input">
+                            <input type="text" name="cpf" placeholder="CPF" ui-mask="999.999.999-99" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" ng-model="user.cpf" required>
+                        </label>
+                        <p ng-show="signupForm.cpf.$pristine || signupForm.cpf.$valid"><br></p>
+                        <p class="error-message" ng-show="!signupForm.cpf.$pristine && !signupForm.cpf.$valid">CPF must be set! Eg: 888.888.888-88</p>
+                        
+                        <label class="item item-input">
+                            <input type="email" name="email" placeholder="Email Address" ng-model="user.email" required>
+                        </label>
+                        <p ng-show="signupForm.email.$pristine || signupForm.email.$valid"><br></p>
+                        <p class="error-message" ng-show="!signupForm.email.$pristine && !signupForm.email.$valid">Email must be set!</p>
+
+                        <label class="item item-input">
+                            <input type="password" name="password" placeholder="Password" ng-model="user.password" required>
+                        </label>
+                        <p ng-show="signupForm.password.$pristine || signupForm.password.$valid"><br></p>
+                        <p class="error-message" ng-show="!signupForm.password.$pristine && !signupForm.password.$valid">Password must be set!</p>
+                        
+                        <label class="item item-input">
+                            <input type="text" name="cellphone" placeholder="Cellphone" ng-model="user.cellphone">
+                        </label>
+                        <p><br></p>
+                        
+                        <label class="item item-input">
+                            <input type="text" name="telephone" placeholder="Telephone" ng-model="user.telephone">
+                        </label>
+                    </div>
+                    <div>
+                        <button class="button button-block button-balanced" ng-disabled="signupForm.$invalid" ng-click="onSubmit()">SIGN UP</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

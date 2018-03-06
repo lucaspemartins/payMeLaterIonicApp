@@ -1,4 +1,4 @@
-<ion-view title="Customers" class="bar-positive">
+<ion-view title="Possible Customers" class="bar-positive">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <ion-list>
             <ion-item class="item item-avatar" ng-repeat="customer in customers | filter : customerFilter">
@@ -8,16 +8,10 @@
                 <h3 class="icon ion-email"> {{ customer.email }}</h3>
                 <h3 class="icon ion-android-call"> {{ customer.cellphone }}</h3>
                 <h3 class="icon ion-iphone"> {{ customer.telephone }}</h3>
-                <ion-option-button class="button-energized">
-                    <button class="button button-icon icon ion-android-create"></button>
-                </ion-option-button>
-                <ion-option-button class="button-assertive" ng-controller="customersDeleteController" ng-click="deleteCustomer(customer.cpf)">
-                    <button class="button button-icon icon ion-android-delete"></button>
+                <ion-option-button class="button-energized" ng-click="addCustomer(customer.cpf)">
+                    <button class="button button-icon icon ion-person-add"></button>
                 </ion-option-button>
             </ion-item>
-            <div class="col text-center" ui-sref="home.customersadd">
-                <button class="button-icon icon ion-android-add-circle blueIcon"></button>
-            </div>
         </ion-list>
     </ion-content>
 </ion-view>

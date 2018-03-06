@@ -1,7 +1,36 @@
 /* Empty. Add your own CSS if you like */
-.icons {
-    max-width:100px;
-    max-height:100px;
+.avatars {
+    max-width:75px;
+    max-height:75px;
     width: auto;
     height: auto;
+}
+
+.blueIcon {
+    color: #337ab7;
+}
+
+.custom-text {
+    text-align: center;
+    font-weight: bold;
+    font-family: courier;
+}
+
+.green-color {
+    color: #33cd5f;
+    font-weight: bold;
+    text-decoration:none;
+}
+
+.error-message {
+    color: #cc0000;
+}
+
+#facebook-color {
+    background-color: #3b5998;
+}
+
+#google-color {
+    background-color: #d62d20;
+    border-color: #9c2e25;
 }
