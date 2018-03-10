@@ -1,6 +1,8 @@
 <ion-view title="Customers" class="bar-positive">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <ion-list>
+            <ion-spinner icon="bubbles" class="spinner-energized block" ng-show="spinner"></ion-spinner>
+            <p ng-show="message" class="custom-text">There are no customers added.</p>
             <ion-item class="item item-avatar" ng-repeat="customer in customers | filter : customerFilter">
                 <img src="https://ontalk.com.br/img/avatars/new/18.png" class="avatars">
                 <h2>{{ customer.user_name }}</h2>
@@ -8,9 +10,6 @@
                 <h3 class="icon ion-email"> {{ customer.email }}</h3>
                 <h3 class="icon ion-android-call"> {{ customer.cellphone }}</h3>
                 <h3 class="icon ion-iphone"> {{ customer.telephone }}</h3>
-                <ion-option-button class="button-energized">
-                    <button class="button button-icon icon ion-android-create"></button>
-                </ion-option-button>
                 <ion-option-button class="button-assertive" ng-controller="customersDeleteController" ng-click="deleteCustomer(customer.cpf)">
                     <button class="button button-icon icon ion-android-delete"></button>
                 </ion-option-button>

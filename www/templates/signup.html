@@ -5,7 +5,7 @@
                 <form name="signupForm">
                     <div class="list list-inset">
                         <label class="item item-input">
-                            <input type="text" name="username" placeholder="Name" ng-model="user.username" required>
+                            <input type="text" name="username" placeholder="Name" ng-model="user.user_name" required>
                         </label>
                         <p ng-show="signupForm.username.$pristine || signupForm.username.$valid"><br></p>
                         <p class="error-message" ng-hide="signupForm.username.$pristine || signupForm.username.$valid">Username must be set!</p>

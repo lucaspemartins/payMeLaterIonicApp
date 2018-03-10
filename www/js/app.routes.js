@@ -44,6 +44,24 @@ angular.module('payMeLaterApp')
             controller: 'customersAddController'
           }
         }
-      });
+      })
+      .state('home.productslist', {
+        url: '/products',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/productslist.html',
+            controller: 'productsListController'
+          }
+        }
+      })
+      .state('home.productsadd', {
+        url: '/add-products',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/productsadd.html',
+            controller: 'productsAddController'
+          }
+        }
+      })
     $urlRouterProvider.otherwise('/')
   });

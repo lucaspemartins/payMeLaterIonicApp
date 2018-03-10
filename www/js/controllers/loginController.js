@@ -4,7 +4,7 @@ angular.module('payMeLaterApp')
             email: '',
             password: ''
         };
-        $scope.onLogin = function () {
+        $scope.onLogin = function (form) {
             alert('Login');
             loginService.onLogin($scope.user)
                 .then(function (success) {
@@ -14,10 +14,19 @@ angular.module('payMeLaterApp')
                     }
                     else {
                         alert("Email or password invalid. Try again");
-                        document.getElementById('email').value='';
-                        document.getElementById('password').value='';
-                        $scope.loginForm.email.$setValidity("reason", false);
-                        $scope.user.password.$setValidity("reason", false);
+                        //document.getElementById('email').value='';
+                        //document.getElementById('password').value='';
+                        //form.email.$setValidity("reason", false);
+                        //form.password.$setValidity("reason", false);
+                        // form.email.$setValidity("reason", false);
+                        // form.password.$setValidity("reason", false);
+                        // form.$setValidity("reason", false);
+                        // form.email.$setPristine();
+                        // form.password.$setPristine();
+                        // form.$setPristine();
+                        // form.email.$setUntouched();
+                        // form.password.$setUntouched();
+                        // form.$setUntouched();
                     }
                 }, function (error) {
                     console.log("Error to invoke get service");

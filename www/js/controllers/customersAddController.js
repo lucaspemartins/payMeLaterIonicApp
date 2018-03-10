@@ -1,10 +1,16 @@
 angular.module('payMeLaterApp')
     .controller('customersAddController', ['$scope', '$window', '$state', 'customersAddService', function ($scope, $window, $state, customersAddService) {
         $scope.vendor_cpf = JSON.parse($window.localStorage.getItem('vendor_cpf'));
+        $scope.message = false;
 
         customersAddService.getPossibleCustomers($scope.vendor_cpf)
             .then(function (success) {
-                $scope.customers = success.data;
+                if (success.data.length > 0) {
+                    $scope.customers = success.data;
+                }
+                else {
+                    $scope.message = true;
+                }
             }, function (error) {
                 console.log("Error to invoke get service");
             });
@@ -20,6 +26,7 @@ angular.module('payMeLaterApp')
                         alert("Customer cannot be added!");
                     }
                     $state.go("home.customerslist");
+                    $window.location.reload();
                 }, function (error) {
                     console.log("Error to invoke get service");
                 });

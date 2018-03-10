@@ -1,0 +1,47 @@
+<ion-view title="Add Products" class="bar-positive">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <div class="row">
+            <div class="col">
+                <form name="productForm">
+                    <div class="list list-inset">
+                        <label class="item item-input">
+                            <input type="text" name="product_code" placeholder="Product Code" ng-model="product.product_code" required>
+                        </label>
+                        <p ng-show="productForm.product_code.$pristine || productForm.product_code.$valid">
+                            <br>
+                        </p>
+                        <p class="error-message" ng-hide="productForm.product_code.$pristine || productForm.product_code.$valid">Product Code must be set!</p>
+
+                        <label class="item item-input">
+                            <input type="text" name="version" placeholder="Version" ng-model="product.product_version" required>
+                        </label>
+                        <p ng-show="productForm.version.$pristine || productForm.version.$valid">
+                            <br>
+                        </p>
+                        <p class="error-message" ng-show="!productForm.version.$pristine && !productForm.version.$valid">Version must be set!</p>
+
+                        <label class="item item-input">
+                            <input type="text" name="product_name" placeholder="Product Name" ng-model="product.product_name"
+                                required>
+                        </label>
+                        <p ng-show="productForm.product_name.$pristine || productForm.product_name.$valid">
+                            <br>
+                        </p>
+                        <p class="error-message" ng-show="!productForm.product_name.$pristine && !productForm.product_name.$valid">Product Name must be set!</p>
+
+                        <label class="item item-input">
+                            <input type="text" name="price" placeholder="Price" ng-model="product.price" required>
+                        </label>
+                        <p ng-show="productForm.price.$pristine || productForm.price.$valid">
+                            <br>
+                        </p>
+                        <p class="error-message" ng-show="!productForm.price.$pristine && !productForm.price.$valid">Price must be set!</p>
+                    </div>
+                    <div>
+                        <button class="button button-block button-balanced" ng-disabled="productForm.$invalid" ng-click="onSubmit()">ADD</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

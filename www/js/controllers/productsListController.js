@@ -1,12 +1,12 @@
 angular.module('payMeLaterApp')
-    .controller('customersListController', ['$scope', '$window', 'customersListService', function ($scope, $window, customersListService) {
+    .controller('productsListController', ['$scope', '$window', 'productsListService', function ($scope, $window, productsListService) {
         $scope.vendor_cpf = JSON.parse($window.localStorage.getItem('vendor_cpf'));
         $scope.spinner = true;
         $scope.message = false;
 
-        customersListService.getCustomers($scope.vendor_cpf)
+        productsListService.getProducts($scope.vendor_cpf)
             .then(function (success) {
-                $scope.customers = success.data;
+                $scope.products = success.data;
                 $scope.spinner = false;
                 if (success.data.length == 0) {
                     $scope.message = true;

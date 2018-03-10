@@ -1,7 +1,7 @@
 angular.module('payMeLaterApp')
-.controller('signupController', ['$scope', function($scope) {
+.controller('signupController', ['$scope', '$state', '$window', 'signupService', function($scope, $state, $window, signupService) {
     $scope.user = {
-        username: '',
+        user_name: '',
         nickname: '',
         password: '',
         cpf: '',
@@ -10,6 +10,13 @@ angular.module('payMeLaterApp')
         telephone: ''
     };
     $scope.onSubmit = function () {
-        alert('Teste')
+        signupService.onSubmit($scope.user)
+        .then(function (success) {
+            $window.localStorage.setItem('vendor_cpf', JSON.stringify(success.data.cpf));
+            alert("Signup successfully!" + JSON.stringify(success.data.cpf));
+            $state.go("home.customerslist");
+        }, function (error) {
+            console.log("Error to invoke service");
+        });
     };
 }]);

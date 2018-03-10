@@ -1,5 +1,6 @@
 <ion-view title="Possible Customers" class="bar-positive">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <p ng-show="message" class="custom-text">There are no customers to be added.</p>
         <ion-list>
             <ion-item class="item item-avatar" ng-repeat="customer in customers | filter : customerFilter">
                 <img src="https://ontalk.com.br/img/avatars/new/18.png" class="avatars">

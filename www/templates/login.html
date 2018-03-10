@@ -14,14 +14,14 @@
                 <form  name="loginForm" ng-model="loginForm">
                     <div class="list list-inset">
                         <label class="item item-input">
-                            <input type="text" id="email" name="email" ng-model="user.email" placeholder="Email Address" required>
+                            <input type="email" id="email" name="email" ng-model="user.email" placeholder="Email Address" required>
                         </label>
                         <label class="item item-input">
                             <input type="password" id="password" name="password" ng-model="user.password" placeholder="Password" required>
                         </label>
                     </div>
                     <div class="padding">
-                        <button class="button button-block button-balanced" ng-disabled="loginForm.$invalid || !loginForm.$error" ng-click="onLogin()">LOG IN</button>
+                        <button class="button button-block button-balanced" ng-disabled="loginForm.$invalid || !loginForm.$error" ng-click="onLogin(loginForm)">LOG IN</button>
                     </div>
                 </form>
             </div>
