@@ -23,7 +23,8 @@ angular.module('payMeLaterApp')
         url: '/home',
         views: {
           'login': {
-            templateUrl: 'templates/home.html'
+            templateUrl: 'templates/home.html',
+            controller: 'homeController'
           }
         }
       })
@@ -60,6 +61,15 @@ angular.module('payMeLaterApp')
           'menuContent': {
             templateUrl: 'templates/productsadd.html',
             controller: 'productsAddController'
+          }
+        }
+      })
+      .state('home.profile', {
+        url: '/profile',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/profile.html',
+            controller: 'profileController'
           }
         }
       })

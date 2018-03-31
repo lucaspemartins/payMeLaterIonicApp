@@ -12,11 +12,17 @@
           <ion-item menu-close ui-sref="home.productslist">
             Products
           </ion-item>
-          <ion-item menu-close href="#/app/browse">
-            Browse
+          <ion-item menu-close>
+            Sales
           </ion-item>
-          <ion-item menu-close href="#/app/playlists">
-            Playlists
+          <ion-item menu-close>
+            Purchases
+          </ion-item>
+          <ion-item menu-close ui-sref="home.profile">
+            Profile
+          </ion-item>
+          <ion-item menu-close ng-click='logout()'>
+            Logout
           </ion-item>
         </ion-list>
       </ion-content>

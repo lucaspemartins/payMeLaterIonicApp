@@ -4,21 +4,61 @@
             <ion-spinner icon="bubbles" class="spinner-energized block" ng-show="spinner"></ion-spinner>
             <p ng-show="message" class="custom-text">There are no products added.</p>
             <ion-item class="item item-avatar" ng-repeat="product in products | filter : productFilter">
-                <img src="https://ontalk.com.br/img/avatars/new/18.png" class="avatars">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ74hbuKt4dbUTZQmb8u4exekvPnPZ_RKPy7v7JamukeMfPFGD2" class="avatars">
                 <h2>{{ product.product_name }}</h2>
                 <h3> Version: {{ product.product_version }}</h3>
                 <h3 class="icon ion-ios-barcode-outline"> {{ product.product_code }}</h3>
                 <h3 class="icon ion-social-usd"> {{ product.price }}</h3>
-                <ion-option-button class="button-energized">
+                <ion-option-button class="button-energized" ng-click="openModal(product)">
                     <button class="button button-icon icon ion-android-create"></button>
                 </ion-option-button>
                 <ion-option-button class="button-assertive" ng-controller="productsDeleteController" ng-click="deleteProduct(product.product_code)">
                     <button class="button button-icon icon ion-android-delete"></button>
                 </ion-option-button>
             </ion-item>
-            <div class="col text-center" ui-sref="home.productsadd">
+            <div ng-hide="spinner" class="col text-center" ui-sref="home.productsadd">
                 <button class="button-icon icon ion-android-add-circle blueIcon"></button>
             </div>
         </ion-list>
     </ion-content>
+
+    <script id="customersedit.html" type="text/ng-template">
+        <ion-modal-view>
+          <ion-header-bar>
+            <h1 class="title">Edit Product</h1>
+          </ion-header-bar>
+          <ion-content overflow-scroll="true" padding="true" class="has-header">
+            <div class="row">
+                <div class="col">
+                    <form name="productForm">
+                        <div class="list">
+                            <label class="item item-input item-stacked-label">
+                                <span class="input-label">Product Name</span>
+                                <input type="text" name="product_name" placeholder="Product Name" ng-model="product.product_name"
+                                    required>
+                            </label>
+                            <p ng-show="productForm.product_name.$pristine || productForm.product_name.$valid">
+                                <br>
+                            </p>
+                            <p class="error-message" ng-show="!productForm.product_name.$pristine && !productForm.product_name.$valid">Product Name must be set!</p>
+    
+                            <label class="item item-input item-stacked-label">
+                                <span class="input-label">Price</span>
+                                <input type="text" name="price" placeholder="Price" ng-model="product.price" required>
+                            </label>
+                            <p ng-show="productForm.price.$pristine || productForm.price.$valid">
+                                <br>
+                            </p>
+                            <p class="error-message" ng-show="!productForm.price.$pristine && !productForm.price.$valid">Price must be set!</p>
+                        </div>
+                        <div>
+                            <button class="button button-block button-balanced" ng-disabled="productForm.$invalid" ng-click="editProduct()">Edit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+          </ion-content>
+        </ion-modal-view>
+      </script>
 </ion-view>
+

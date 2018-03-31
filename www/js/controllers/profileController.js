@@ -1,46 +1,44 @@
 angular.module('payMeLaterApp')
-    .controller('productsListController', ['$scope', '$window', '$ionicModal', '$state', 'productsListService', 'productsEditService', function ($scope, $window, $ionicModal, $state, productsListService, productsEditService) {
+    .controller('profileController', ['$scope', '$window', '$ionicModal', '$state', 'profileGetService', 'profileEditService', function ($scope, $window, $ionicModal, $state, profileGetService, profileEditService) {
         $scope.vendor_cpf = JSON.parse($window.localStorage.getItem('vendor_cpf'));
         $scope.spinner = true;
-        $scope.message = false;
-        $scope.product = {
-            product_name: '',
-            product_version: '',
-            product_code: '',
-            price: '',
-            user_cpf: ''
+        $scope.user = {
+            cpf: '',
+            nickname: '',
+            user_name: '',
+            email: '',
+            password: '',
+            cellphone: '',
+            telephone: ''
         };
 
-        productsListService.getProducts($scope.vendor_cpf)
+        profileGetService.getProfile($scope.vendor_cpf)
             .then(function (success) {
-                $scope.products = success.data;
+                $scope.user = success.data[0];
                 $scope.spinner = false;
-                if (success.data.length == 0) {
-                    $scope.message = true;
-                }
             }, function (error) {
                 $scope.spinner = false;
                 console.log("Error to invoke get service");
             });
 
-        $scope.editProduct = function () {
-            productsEditService.editProduct($scope.product)
+        $scope.editProfile = function () {
+            profileEditService.editProfile($scope.vendor_cpf, $scope.user)
                 .then(function (success) {
+                    //$window.localStorage.setItem('vendor_cpf', JSON.stringify($scope.user.cpf));
                     $window.location.reload();
                 }, function (error) {
                     console.log("Error to invoke get service");
                 });
         };
 
-        $ionicModal.fromTemplateUrl('customersedit.html', {
+        $ionicModal.fromTemplateUrl('profileedit.html', {
             scope: $scope,
             animation: 'slide-in-up'
         }).then(function (modal) {
             $scope.modal = modal;
         });
-        $scope.openModal = function (product) {
-            $scope.product = product;
-            $scope.modal.show();
+        $scope.openModal = function () {
+            $scope.modal.show($scope.user);
         };
         $scope.closeModal = function () {
             $scope.modal.hide();

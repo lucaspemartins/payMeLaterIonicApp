@@ -1,0 +1,96 @@
+<ion-view title="Profile" class="bar-positive">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <ion-spinner icon="bubbles" class="spinner-energized block" ng-show="spinner"></ion-spinner>
+        <ion-list ng-hide="spinner"> 
+            <ion-item class="item item-avatar">
+                <img src="https://ontalk.com.br/img/avatars/new/18.png" class="avatars">
+                <h2>{{ user.user_name }}</h2>
+                <h3 class="icon ion-person"> {{ user.nickname }}</h3>
+                <h3 class="icon ion-card"> {{ user.cpf }}</h3>
+                <h3 class="icon ion-email"> {{ user.email }}</h3>
+                <h3> Password: {{ user.password }}</h3>
+                <h3 class="icon ion-android-call"> {{ user.cellphone }}</h3>
+                <h3 class="icon ion-iphone"> {{ user.telephone }}</h3>
+                <ion-option-button class="button-energized" ng-click="openModal()">
+                    <button class="button button-icon icon ion-android-create"></button>
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+    <script id="profileedit.html" type="text/ng-template">
+        <ion-modal-view>
+          <ion-header-bar>
+            <h1 class="title">Edit Profile</h1>
+          </ion-header-bar>
+          <ion-content overflow-scroll="true" padding="true" class="has-header">
+            <div class="row">
+                <div class="col">
+                    <form name="profileForm">
+                        <div class="list">
+                            <label class="item item-input item-stacked-label">
+                                <span class="input-label">Name</span>
+                                <input type="text" name="user_name" placeholder="Name" ng-model="user.user_name"
+                                    required>
+                            </label>
+                            <p ng-show="profileForm.user_name.$pristine || profileForm.user_name.$valid">
+                                <br>
+                            </p>
+                            <p class="error-message" ng-show="!profileForm.user_name.$valid">Name must be set!</p>
+    
+                            <label class="item item-input item-stacked-label">
+                                <span class="input-label">Nickname</span>
+                                <input type="text" name="nickname" placeholder="Nickname" ng-model="user.nickname"
+                                    required>
+                            </label>
+                            <p ng-show="profileForm.nickname.$pristine || profileForm.nickname.$valid">
+                                <br>
+                            </p>
+                            <p class="error-message" ng-show="!profileForm.nickname.$valid">Nickname must be set!</p>
+    
+                            <label class="item item-input item-stacked-label">
+                                <span class="input-label">Email</span>
+                                <input type="email" name="email" placeholder="Email" ng-model="user.email"
+                                    required>
+                            </label>
+                            <p ng-show="profileForm.email.$pristine || profileForm.email.$valid">
+                                <br>
+                            </p>
+                            <p class="error-message" ng-show="!profileForm.email.$valid">Email must be set!</p>
+    
+                            <label class="item item-input item-stacked-label">
+                                <span class="input-label">Password</span>
+                                <input type="password" name="password" placeholder="Password" ng-model="user.password"
+                                    required>
+                            </label>
+                            <p ng-show="profileForm.password.$pristine || profileForm.password.$valid">
+                                <br>
+                            </p>
+                            <p class="error-message" ng-show="!profileForm.password.$valid">Password must be set!</p>
+    
+                            <label class="item item-input item-stacked-label">
+                                <span class="input-label">Cellphone</span>
+                                <input type="text" name="cellphone" placeholder="Cellphone" ng-model="user.cellphone">
+                            </label>
+                            <p>
+                                <br>
+                            </p>
+    
+                            <label class="item item-input item-stacked-label">
+                                <span class="input-label">Telephone</span>
+                                <input type="text" name="telephone" placeholder="Telephone" ng-model="user.telephone">
+                            </label>
+                            <p>
+                                <br>
+                            </p>
+                        </div>
+                        <div>
+                            <button class="button button-block button-balanced" ng-disabled="profileForm.$invalid" ng-click="editProfile()">Edit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+          </ion-content>
+        </ion-modal-view>
+      </script>
+</ion-view>
