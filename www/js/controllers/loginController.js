@@ -1,39 +1,46 @@
 angular.module('payMeLaterApp')
-    .controller('loginController', ['$scope', '$window', '$state', 'loginService', function ($scope, $window, $state, loginService) {
+    .controller('loginController', ['$scope', '$window', '$state', '$ionicLoading', '$ionicPopup', 'loginService', function ($scope, $window, $state, $ionicLoading, $ionicPopup, loginService) {
         $scope.user = {
             email: '',
             password: ''
         };
         $scope.onLogin = function (form) {
-            alert('Login');
+            $scope.show();
             loginService.onLogin($scope.user)
                 .then(function (success) {
-                    if (success.data.length > 0){
-                        $window.localStorage.setItem('vendor_cpf', JSON.stringify(success.data[0].cpf))
+                    if (success.data.length > 0) {
+                        $window.localStorage.setItem('vendor_cpf', JSON.stringify(success.data[0].cpf));
+                        $scope.hide();
                         $state.go("home");
                     }
                     else {
-                        alert("Email or password invalid. Try again");
-                        //document.getElementById('email').value='';
-                        //document.getElementById('password').value='';
-                        //form.email.$setValidity("reason", false);
-                        //form.password.$setValidity("reason", false);
-                        // form.email.$setValidity("reason", false);
-                        // form.password.$setValidity("reason", false);
-                        // form.$setValidity("reason", false);
-                        // form.email.$setPristine();
-                        // form.password.$setPristine();
-                        // form.$setPristine();
-                        // form.email.$setUntouched();
-                        // form.password.$setUntouched();
-                        // form.$setUntouched();
+                        $scope.hide();
+                        $scope.showAlert("Email or password invalid. Try again");
                     }
                 }, function (error) {
                     console.log("Error to invoke get service");
                 });
         };
-        $scope.onGoogleLogin = function () {
-            alert('Google Login');
-            window.open('https://plus.google.com/', 'blank', 'location=no');
+        $scope.show = function () {
+            $ionicLoading.show({
+                template: 'Loading...'
+            }).then(function () {
+                console.log("The loading indicator is now displayed");
+            });
+        };
+        $scope.hide = function () {
+            $ionicLoading.hide().then(function () {
+                console.log("The loading indicator is now hidden");
+            });
+        };
+
+        $scope.showAlert = function (message) {
+            $ionicPopup.alert({
+                title: 'Login',
+                content: message
+            }).then(function (res) {
+                console.log(message);
+                $window.location.reload();
+            });
         };
     }]);

@@ -24,7 +24,6 @@ angular.module('payMeLaterApp')
         $scope.editProfile = function () {
             profileEditService.editProfile($scope.vendor_cpf, $scope.user)
                 .then(function (success) {
-                    //$window.localStorage.setItem('vendor_cpf', JSON.stringify($scope.user.cpf));
                     $window.location.reload();
                 }, function (error) {
                     console.log("Error to invoke get service");

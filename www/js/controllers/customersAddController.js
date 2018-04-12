@@ -1,5 +1,5 @@
 angular.module('payMeLaterApp')
-    .controller('customersAddController', ['$scope', '$window', '$state', 'customersAddService', function ($scope, $window, $state, customersAddService) {
+    .controller('customersAddController', ['$scope', '$window', '$state', '$ionicPopup', 'customersAddService', function ($scope, $window, $state, $ionicPopup, customersAddService) {
         $scope.vendor_cpf = JSON.parse($window.localStorage.getItem('vendor_cpf'));
         $scope.message = false;
 
@@ -15,20 +15,29 @@ angular.module('payMeLaterApp')
                 console.log("Error to invoke get service");
             });
 
-        $scope.addCustomer = function (customerCpf) {
-            customersAddService.addCustomer($scope.vendor_cpf, customerCpf)
+        $scope.addCustomer = function (customer) {
+            customersAddService.addCustomer($scope.vendor_cpf, customer.cpf)
                 .then(function (success) {
                     var response = JSON.stringify(success);
                     if (response.indexOf("\"affectedRows\":1") > -1) {
-                        alert("Customer with CPF: " + customerCpf + "\nwas added with success!");
+                        $scope.showAlert("Customer: " + customer.user_name + "\nwas added with success!");
                     }
                     else {
-                        alert("Customer cannot be added!");
+                        $scope.showAlert("Customer cannot be added!");
                     }
-                    $state.go("home.customerslist");
-                    $window.location.reload();
                 }, function (error) {
                     console.log("Error to invoke get service");
                 });
         }
+
+        $scope.showAlert = function (message) {
+            $ionicPopup.alert({
+                title: 'Customer',
+                content: message
+            }).then(function (res) {
+                console.log(message);
+                $state.go("home.customerslist");
+                $window.location.reload();
+            });
+        };
     }]);

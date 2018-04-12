@@ -73,5 +73,14 @@ angular.module('payMeLaterApp')
           }
         }
       })
+      .state('home.saleslist', {
+        url: '/sales',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/saleslist.html',
+            controller: 'salesListController'
+          }
+        }
+      })
     $urlRouterProvider.otherwise('/')
   });

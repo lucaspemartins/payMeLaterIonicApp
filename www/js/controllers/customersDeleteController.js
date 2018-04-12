@@ -1,21 +1,29 @@
 angular.module('payMeLaterApp')
-    .controller('customersDeleteController', ['$scope', '$window', 'customersDeleteService', function ($scope, $window, customersDeleteService) {
+    .controller('customersDeleteController', ['$scope', '$window', '$ionicPopup', 'customersDeleteService', function ($scope, $window, $ionicPopup, customersDeleteService) {
         $scope.vendor_cpf = JSON.parse($window.localStorage.getItem('vendor_cpf'));
 
-        $scope.deleteCustomer = function (customer_cpf) {
-            customersDeleteService.deleteCustomer($scope.vendor_cpf, customer_cpf)
+        $scope.deleteCustomer = function (customer) {
+            customersDeleteService.deleteCustomer($scope.vendor_cpf, customer.cpf)
                 .then(function (success) {
                     var response = JSON.stringify(success);
                     if (response.indexOf("\"affectedRows\":1") > -1) {
-                        alert("Customer with CPF: " + customer_cpf + "\nwas deleted with success!");
+                        $scope.showAlert("Customer: " + customer.user_name + "\nwas deleted with success!");
                     }
                     else {
-                        alert("Customer cannot be deleted!");
+                        $scope.showAlert("Customer cannot be deleted!");
                     }
-                    $window.location.reload();
                 }, function (error) {
                     alert(error);
                 });
         };
 
+        $scope.showAlert = function (message) {
+            $ionicPopup.alert({
+                title: 'Customer',
+                content: message
+            }).then(function (res) {
+                console.log(message);
+                $window.location.reload();
+            });
+        };
     }]);
