@@ -3,28 +3,20 @@
         <ion-list>
             <ion-spinner icon="bubbles" class="spinner-energized block" ng-show="spinner"></ion-spinner>
             <p ng-show="message" class="custom-text">There are no sales.</p>
-            <div ng-repeat="customer in sales | filter : saleFilter">
-            <ion-item class="item item-avatar" ng-click="toggleCustomer(customer)" ng-class="{active: isCustomerShown(customer)}">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ74hbuKt4dbUTZQmb8u4exekvPnPZ_RKPy7v7JamukeMfPFGD2" class="avatars">
-                <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
-                Customer: {{customer.user_name}}
+            <div ng-repeat="(key, value) in sales | groupBy: '[user_name, nickname]'">
+                <ion-item class="item item-avatar">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ74hbuKt4dbUTZQmb8u4exekvPnPZ_RKPy7v7JamukeMfPFGD2" class="avatars">
+                    <h2>{{key}}</h2>
+                    <ion-item class="item-stable" ng-repeat="sale in value" ng-click="toggleSale(sale)" ng-class="{active: isSaleShown(sale)}">
+                        <i class="icon" ng-class="isSaleShown(sale) ? 'ion-minus' : 'ion-plus'"></i>
+                        <h2>{{ sale.product_name }}</h2>
+                        <ion-item class="item-accordion" ng-click="toggleSale(sale)" ng-class="{active: isSaleShown(sale)}">
+                            <h3> Version: {{ sale.products_product_version }}</h3>
+                            <h3 class="icon ion-ios-barcode-outline"> {{ sale.products_product_code }}</h3>
+                            <h3 class="icon ion-social-usd"> {{ sale.price }}</h3>
+                        </ion-item>
+                    </ion-item>
                 </ion-item>
-                <ion-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
-                <h2>{{ sale.product_name }}</h2>
-                <h3> Version: {{ sale.product_version }}</h3>
-                <h3 class="icon ion-ios-barcode-outline"> {{ sale.product_code }}</h3>
-                <h3 class="icon ion-social-usd"> {{ sale.price }}</h3>
-                <ion-option-button class="button-energized" ng-click="openModal(sale)">
-                    <button class="button button-icon icon ion-android-create"></button>
-                </ion-option-button>
-                <ion-option-button class="button-assertive" ng-controller="salesDeleteController" ng-click="deleteProduct(sale.product_code)">
-                    <button class="button button-icon icon ion-android-delete"></button>
-                </ion-option-button>
-            </ion-item>
-            <div ng-hide="spinner" class="col text-center" ui-sref="home.salesadd">
-                <button class="button-icon icon ion-android-add-circle blueIcon"></button>
-            </div>
         </ion-list>
     </ion-content>
 </ion-view>
-

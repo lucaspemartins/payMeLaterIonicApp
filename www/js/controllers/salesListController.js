@@ -8,13 +8,15 @@ angular.module('payMeLaterApp')
             products_product_version: '',
             product_name: '',
             quantity: '',
-            price: ''
+            price: '',
+            user_name: '',
+            nickname: ''
         };
 
         salesListService.getSales($scope.vendor_cpf)
             .then(function (success) {
                 $scope.sales = success.data;
-                formatSalesData($scope.sales);
+                //formatSalesData($scope.sales);
                 $scope.spinner = false;
                 if (success.data.length == 0) {
                     $scope.message = true;
@@ -39,5 +41,17 @@ angular.module('payMeLaterApp')
         }
 
         $scope.editProduct = function () {
+        };
+
+        $scope.toggleSale = function (sale) {
+            if ($scope.isSaleShown(sale)) {
+                $scope.shownSale = null;
+            } else {
+                $scope.shownSale = sale;
+            }
+        };
+
+        $scope.isSaleShown = function (sale) {
+            return $scope.shownSale === sale;
         };
     }]);

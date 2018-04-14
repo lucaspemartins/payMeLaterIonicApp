@@ -42,3 +42,17 @@
     background-color: #d62d20;
     border-color: #9c2e25;
 }
+
+.list .item.item.item-accordion {
+    line-height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: 0.09s all linear;
+}
+.list .item.item.item-accordion.ng-hide {
+    line-height: 0px;
+}
+.list .item.item.item-accordion.ng-hide-add,
+.list .item.item.item-accordion.ng-hide-remove {
+    display: block !important;
+}
