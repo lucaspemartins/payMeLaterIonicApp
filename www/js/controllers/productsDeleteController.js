@@ -1,5 +1,5 @@
 angular.module('payMeLaterApp')
-    .controller('productsDeleteController', ['$scope', '$window', 'productsDeleteService', function ($scope, $window, productsDeleteService) {
+    .controller('productsDeleteController', ['$scope', '$window', '$ionicPopup', 'productsDeleteService', function ($scope, $window, $ionicPopup, productsDeleteService) {
         $scope.vendor_cpf = JSON.parse($window.localStorage.getItem('vendor_cpf'));
 
         $scope.deleteProduct = function (product_code) {
@@ -7,15 +7,24 @@ angular.module('payMeLaterApp')
                 .then(function (success) {
                     var response = JSON.stringify(success);
                     if (response.indexOf("\"affectedRows\":1") > -1) {
-                        alert("Product with code: " + product_code + "\nwas deleted with success!");
+                        $scope.showAlert("Product with code: " + product_code + "\nwas deleted with success!");
                     }
                     else {
-                        alert("Product cannot be deleted!");
+                        $scope.showAlert("Product cannot be deleted!");
                     }
                     $window.location.reload();
                 }, function (error) {
-                    alert(error);
+                    $scope.showAlert(error);
                 });
         };
 
+        $scope.showAlert = function (message) {
+            $ionicPopup.alert({
+                title: 'Product',
+                content: message
+            }).then(function (res) {
+                console.log(message);
+                $window.location.reload();
+            });
+        };
     }]);

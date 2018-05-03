@@ -82,5 +82,41 @@ angular.module('payMeLaterApp')
           }
         }
       })
+      .state('home.salesadd', {
+        url: '/add-sales/?nickname',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/salesadd.html',
+            controller: 'salesAddController'
+          }
+        }
+      })
+      .state('home.salesaddcustomer', {
+        url: '/add-sales',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/salesaddcustomer.html',
+            controller: 'salesAddCustomerController'
+          }
+        }
+      })
+      .state('home.purchases', {
+        url: '/purchases',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/purchaseslist.html',
+            controller: 'purchasesListController'
+          }
+        }
+      })
+      .state('home.reports', {
+        url: '/reports',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/reports.html',
+            controller: 'reportsController'
+          }
+        }
+      })
     $urlRouterProvider.otherwise('/')
   });

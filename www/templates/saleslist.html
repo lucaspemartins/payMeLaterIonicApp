@@ -3,20 +3,66 @@
         <ion-list>
             <ion-spinner icon="bubbles" class="spinner-energized block" ng-show="spinner"></ion-spinner>
             <p ng-show="message" class="custom-text">There are no sales.</p>
-            <div ng-repeat="(key, value) in sales | groupBy: '[user_name, nickname]'">
-                <ion-item class="item item-avatar">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ74hbuKt4dbUTZQmb8u4exekvPnPZ_RKPy7v7JamukeMfPFGD2" class="avatars">
-                    <h2>{{key}}</h2>
-                    <ion-item class="item-stable" ng-repeat="sale in value" ng-click="toggleSale(sale)" ng-class="{active: isSaleShown(sale)}">
-                        <i class="icon" ng-class="isSaleShown(sale) ? 'ion-minus' : 'ion-plus'"></i>
-                        <h2>{{ sale.product_name }}</h2>
-                        <ion-item class="item-accordion" ng-click="toggleSale(sale)" ng-class="{active: isSaleShown(sale)}">
-                            <h3> Version: {{ sale.products_product_version }}</h3>
-                            <h3 class="icon ion-ios-barcode-outline"> {{ sale.products_product_code }}</h3>
-                            <h3 class="icon ion-social-usd"> {{ sale.price }}</h3>
-                        </ion-item>
+            <ion-item ng-repeat="(key, value) in sales | groupBy: '[user_name, nickname]'">
+                <h2>{{key}}</h2>
+                <ion-item ng-repeat="sale in value" ng-click="toggleSale(sale)" ui-sref-active="active">
+                    <i class="icon" ng-class="isSaleShown(sale) ? 'ion-minus' : 'ion-plus'"> {{ sale.product_name }} </i>
+                    <br> ({{sale.date_time}})
+                    <br>
+                    <br>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ74hbuKt4dbUTZQmb8u4exekvPnPZ_RKPy7v7JamukeMfPFGD2" class="sales-avatars">
+                    <ion-item class="item-accordion" ng-click="toggleSale(sale)" ng-show="isSaleShown(sale)">
+                        <h3> Version: {{ sale.products_product_version }}</h3>
+                        <h3 class="icon ion-ios-barcode-outline"> Code: {{ sale.products_product_code }}</h3>
+                        <h3 class="icon ion-social-usd"> {{ sale.price }} (Unity)</h3>
+                        <h3> Quantity: {{ sale.quantity }} </h3>
+                        <h3 class="icon ion-social-usd" ng-model="total" ng-init="total = calculateTotal(sale.quantity, sale.price)"> {{ total }} (Total)</h3>
+                        <h3 ng-init="paid = retrievePaidAmount(sale.paid_amount)"> Paid Amount: {{ paid }}</h3>
+                        <h3 ng-init="debt = calculateDebt(sale.paid_amount, total)"> Debt: {{ debt }} </h3>
+                        <ion-option-button class="button-energized" ng-click="openModal(sale)">
+                            <button class="button button-icon icon ion-android-create"></button>
+                        </ion-option-button>
+                        <ion-option-button class="button-assertive" ng-controller="salesDeleteController" ng-click="deleteSale(sale)">
+                            <button class="button button-icon icon ion-android-delete"></button>
+                        </ion-option-button>
                     </ion-item>
                 </ion-item>
+                <div ng-hide="spinner" class="col text-center" ng-click="addNewSaleForCustomer(key)">
+                    <button class="button-icon icon ion-android-add-circle blueIcon"></button>
+                </div>
+            </ion-item>
+            <div ng-show="!message_customer" class="col text-center" ng-click="addNewSale()">
+                <button class="button-icon icon ion-android-add-circle blueIcon"></button>
+            </div>
+            <p ng-show="message_customer" class="custom-text">There are no customers available to add new sale.</p>
         </ion-list>
     </ion-content>
+
+    <script id="salesedit.html" type="text/ng-template">
+        <ion-modal-view>
+          <ion-header-bar>
+            <h1 class="title">Edit Sale</h1>
+          </ion-header-bar>
+          <ion-content overflow-scroll="true" padding="true" class="has-header">
+            <div class="row">
+                <div class="col">
+                    <form name="saleForm">
+                        <div class="list">
+                            <label class="item item-input item-stacked-label">
+                                <span class="input-label">Sale paid amount</span>
+                                <input type="text" name="sale_paid_amount" placeholder="Sale paid amount" ng-model="sale.paid_amount"
+                                    pattern="\d+(,\d{1,2}){0,1}" required>
+                            </label>
+                            <p ng-show="saleForm.sale_paid_amount.$pristine || saleForm.sale_paid_amount.$valid"><br></p>
+                            <p class="error-message" ng-show="!saleForm.sale_paid_amount.$pristine && !saleForm.sale_paid_amount.$valid">Sale paid amount must be set!</p>
+                        <div class="button-bar">
+                            <button class="button button-block button-balanced" ng-disabled="saleForm.$invalid" ng-click="editSale(sale)">Edit</button>
+                            <button class="button button-block button-assertive" ng-click="closeModal()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+          </ion-content>
+        </ion-modal-view>
+      </script>
 </ion-view>

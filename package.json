@@ -9,7 +9,9 @@
     "gulp-sass": "^3.1.0"
   },
   "dependencies": {
+    "angular-chart.js": "^1.1.1",
     "angular-filter": "^0.5.17",
+    "chart.js": "^2.7.2",
     "cordova-android": "^7.0.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.12.9"

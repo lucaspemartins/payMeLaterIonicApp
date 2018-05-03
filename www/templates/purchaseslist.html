@@ -1,0 +1,28 @@
+<ion-view title="Purchases" class="bar-positive">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <ion-list>
+            <ion-spinner icon="bubbles" class="spinner-energized block" ng-show="spinner"></ion-spinner>
+            <p ng-show="message" class="custom-text">There are no purchases.</p>
+            <ion-item ng-repeat="(key, value) in purchases | groupBy: '[user_name, nickname]'">
+                <h2>{{key}}</h2>
+                <ion-item ng-repeat="purchase in value" ng-click="togglePurchase(purchase)" ui-sref-active="active">
+                    <i class="icon" ng-class="isPurchaseShown(purchase) ? 'ion-minus' : 'ion-plus'"> {{ purchase.product_name }} </i>
+                    <br> ({{purchase.date_time}})
+                    <br>
+                    <br>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ74hbuKt4dbUTZQmb8u4exekvPnPZ_RKPy7v7JamukeMfPFGD2" class="purchases-avatars">
+                    <ion-item class="item-accordion" ng-click="togglePurchase(purchase)" ng-show="isPurchaseShown(purchase)">
+                        <h3> Version: {{ purchase.products_product_version }}</h3>
+                        <h3 class="icon ion-ios-barcode-outline"> Code: {{ purchase.products_product_code }}</h3>
+                        <h3 class="icon ion-social-usd"> {{ purchase.price }} (Unity)</h3>
+                        <h3> Quantity: {{ purchase.quantity }} </h3>
+                        <h3 class="icon ion-social-usd" ng-model="total" ng-init="total = calculateTotal(purchase.quantity, purchase.price)"> {{ total }} (Total)</h3>
+                        <h3 ng-init="paid = retrievePaidAmount(purchase.paid_amount)"> Paid Amount: {{ paid }}</h3>
+                        <h3 ng-init="debt = calculateDebt(purchase.paid_amount, total)"> Debt: {{ debt }} </h3>
+                    </ion-item>
+                </ion-item>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+</ion-view>

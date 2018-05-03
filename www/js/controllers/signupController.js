@@ -17,7 +17,7 @@ angular.module('payMeLaterApp')
                 signupService.onSubmit($scope.user)
                     .then(function (success) {
                         $window.localStorage.setItem('vendor_cpf', JSON.stringify(success.data.cpf));
-                        alert("Signup successfully!" + JSON.stringify(success.data.cpf));
+                        $scope.showAlert("Signup successfully!" + JSON.stringify(success.data.cpf));
                         $state.go("home.customerslist");
                     }, function (error) {
                         console.log("Error to invoke service");

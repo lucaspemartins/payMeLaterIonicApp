@@ -1,0 +1,67 @@
+<ion-view title="Add Sales" class="bar-positive">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <div class="row">
+            <div class="col">
+                <form name="saleForm">
+                    <div class="list list-inset">
+                        <label class="item item-input item-select">
+                            <div class="input-label">Product Name</div>
+                            <select name="product_name" ng-model="productName" required>
+                                <option ng-repeat="(key, value) in products | groupBy: 'product_name'">{{key}}</option>
+                            </select>
+                        </label>
+                        <p ng-show="saleForm.product_name.$dirty">
+                            <br>
+                        </p>
+                        <p class="error-message" ng-show="!saleForm.product_name.$dirty">Product Name must be chosen!</p>
+
+                        <label class="item item-input item-select">
+                            <div class="input-label">Product Code</div>
+                            <select ng-disabled="!saleForm.product_name.$dirty" name="code" ng-model="code" ng-options="product.product_code for product in products | filter:{product_name:productName} | unique: 'product_code'"
+                                required>
+                            </select>
+                        </label>
+                        <p ng-show="saleForm.code.$dirty">
+                            <br>
+                        </p>
+                        <p class="error-message" ng-show="!saleForm.code.$dirty">Product Code must be chosen!</p>
+
+                        <label class="item item-input item-select">
+                            <div class="input-label">Product Version</div>
+                            <select ng-disabled="!(saleForm.product_name.$dirty && saleForm.code.$dirty)" name="version" ng-model="version" ng-options="product.product_version for product in products | filter:{product_name:productName}"
+                                required>
+                            </select>
+                        </label>
+                        <p ng-show="saleForm.version.$dirty">
+                            <br>
+                        </p>
+                        <p class="error-message" ng-show="!saleForm.version.$dirty">Product Version must be chosen!</p>
+
+                        <label class="item item-input item-select">
+                            <div class="input-label">Product Id</div>
+                            <select ng-disabled="!(saleForm.product_name.$dirty && saleForm.version.$dirty)" name="id_product" ng-model="id_product" ng-options="product.id_product for product in products | filter:productName | filter:version">
+                            </select>
+                        </label>
+                        <p ng-show="saleForm.id_product.$dirty">
+                            <br>
+                        </p>
+                        <p class="error-message" ng-show="!saleForm.id_product.$dirty">Product Id must be chosen!</p>
+
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Quantity</span>
+                            <input type="number" min="1" name="quantity" placeholder="Quantity" ng-model="quantity" required>
+                        </label>
+                        <p ng-show="saleForm.quantity.$valid">
+                            <br>
+                        </p>
+                        <p class="error-message" ng-show="!saleForm.quantity.$valid">Quantity must be chosen!</p>
+                    </div>
+                    <div class="button-bar">
+                        <button class="button button-block button-balanced" ng-disabled="saleForm.$invalid" ng-click="onSubmit()">ADD</button>
+                        <button class="button button-block button-assertive" ui-sref="home.saleslist">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

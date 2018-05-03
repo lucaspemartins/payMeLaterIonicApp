@@ -51,8 +51,9 @@
                             </p>
                             <p class="error-message" ng-show="!productForm.price.$pristine && !productForm.price.$valid">Price must be set!</p>
                         </div>
-                        <div>
+                        <div class="button-bar">
                             <button class="button button-block button-balanced" ng-disabled="productForm.$invalid" ng-click="editProduct()">Edit</button>
+                            <button class="button button-block button-assertive" ng-click="closeModal()">Cancel</button>
                         </div>
                     </form>
                 </div>

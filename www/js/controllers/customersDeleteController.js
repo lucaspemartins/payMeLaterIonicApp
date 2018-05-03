@@ -13,7 +13,7 @@ angular.module('payMeLaterApp')
                         $scope.showAlert("Customer cannot be deleted!");
                     }
                 }, function (error) {
-                    alert(error);
+                    $scope.showAlert(error);
                 });
         };
 

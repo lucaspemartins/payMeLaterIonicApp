@@ -11,7 +11,7 @@ angular.module('payMeLaterApp')
                     if (success.data.length > 0) {
                         $window.localStorage.setItem('vendor_cpf', JSON.stringify(success.data[0].cpf));
                         $scope.hide();
-                        $state.go("home");
+                        $state.go("home.reports");
                     }
                     else {
                         $scope.hide();
